@@ -1,5 +1,7 @@
 # chprompt
 
+[![Shelly CI](https://github.com/ronchi-oss/chprompt/actions/workflows/shelly-ci.yml/badge.svg)](https://github.com/ronchi-oss/chprompt/actions/workflows/shelly-ci.yml)
+
 `chprompt` is a POSIX shell function API for managing the prompt (PS1) of the current *bash* shell environment. You can build it from source with [shelly](https://github.com/ronchi-oss/shelly) or install it with Homebrew.
 
 ```
