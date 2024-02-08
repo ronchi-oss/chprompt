@@ -1,0 +1,31 @@
+name: Shelly CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Download, extract and build shelly
+      run: >
+        wget https://github.com/ronchi-oss/shelly/archive/refs/tags/v0.1.1.zip &&
+            unzip v0.1.1.zip &&
+            cd shelly-0.1.1 &&
+            ./bin/shelly-build -s main > shelly &&
+            chmod +x shelly &&
+            mv shelly .. &&
+            cd ..
+
+    - name: Run shellcheck
+      run: ./shelly shellcheck
+
+    - name: Bundle and run tests
+      run: ./shelly test
