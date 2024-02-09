@@ -1,5 +1,5 @@
 __chprompt_command__version() {
-    echo 'chprompt version 0.1.0'
+    echo 'chprompt version 0.1.1'
 }
 
 export CHPROMPT_EDITOR="${CHPROMPT_EDITOR:-$EDITOR}"
