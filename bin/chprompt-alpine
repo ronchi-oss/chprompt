@@ -1,0 +1,28 @@
+#!/bin/sh -x
+
+image_tag='ronchi-oss/chprompt-alpine'
+
+docker build --tag "$image_tag:latest" - <<EOD
+FROM alpine
+RUN apk update
+RUN apk add bash git
+RUN <<-EOR
+    mkdir /opt/shelly-bin
+    echo 'export SHELLY_BIN=/opt/shelly-bin' >> ~/.bash_profile
+    echo 'export PATH="\$SHELLY_BIN:\$PATH"' >> ~/.bash_profile
+    . ~/.bash_profile
+    cd /mnt
+    git clone https://github.com/ronchi-oss/shelly.git
+    git clone https://github.com/ronchi-oss/chprompt.git
+    cd /mnt/shelly
+    ./bin/shelly-install -x shelly -s main
+    cd /mnt/chprompt
+    shelly install chprompt.sh
+    shelly install chprompt-completion.bash bash_completion
+    echo 'source \$SHELLY_BIN/chprompt.sh' >> ~/.bash_profile
+    echo 'source \$SHELLY_BIN/chprompt-completion.bash' >> ~/.bash_profile
+    echo 'chprompt set user_at_host bash chprompt HOME :dog: "\n" exit_status_dwim' >> ~/.bash_profile
+EOR
+EOD
+
+docker run -it "$image_tag" bash -l
