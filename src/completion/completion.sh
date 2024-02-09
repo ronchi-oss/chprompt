@@ -1,10 +1,5 @@
 __chprompt_completion__suggest_commands() {
-    chprompt help \
-        | grep '^\t' \
-        | cut -f 2 \
-        | while read -r command _; do
-              echo "$command"
-          done
+    chprompt help | awk '/^\t/ { print $1 }'
 }
 
 __chprompt_completion__suggest_commands_with_help() {
