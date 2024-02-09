@@ -25,4 +25,4 @@ RUN <<-EOR
 EOR
 EOD
 
-docker run -it "$image_tag" bash -l
+docker run -it "$image_tag" bash -l </dev/tty

@@ -4,6 +4,12 @@
 
 `chprompt` is a POSIX shell function API for managing the prompt (PS1) of the current *bash* shell environment. You can build it from source with [shelly](https://github.com/ronchi-oss/shelly) or install it with Homebrew.
 
+Try it (with Docker):
+
+```sh
+curl https://raw.githubusercontent.com/ronchi-oss/chprompt/main/bin/chprompt-alpine | sh
+```
+
 ```
 Usage: chprompt <command> [arguments]
 
