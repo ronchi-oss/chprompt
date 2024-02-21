@@ -54,7 +54,11 @@ __chprompt_render_prompt() {
 __chprompt_render_token() {
     token="${1:?'missing argument <token>'}" || return 1
     case "$token" in
-        :*:) __chprompt_plugin__emoji "$token" | __chprompt_renderer__default "$token" ;;
+        :*:) result="$(__chprompt_plugin__emoji "$token")"
+             status="$?"
+             test "$status" -eq 0 || return "$status"
+             echo "$result" | __chprompt_renderer__default "$token"
+             ;;
         \\?) __chprompt_plugin__special_character "$token" | __chprompt_renderer__default "$token" ;;
         [A-Z_]*) __chprompt_plugin__env "$token" | __chprompt_renderer__data_tuples env ;;
         *)
